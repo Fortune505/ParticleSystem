@@ -16,7 +16,7 @@ namespace ParticleSystem
         public float GravitationX = 0;
         public float GravitationY = 0;
 
-        public List<Point> gravityPoints = new List<Point>();
+        public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
 
         public void UpdateState()
         {
@@ -40,16 +40,9 @@ namespace ParticleSystem
                 }
                 else
                 {
-                    foreach (var point in gravityPoints)
+                    foreach (var point in impactPoints)
                     {
-                        float gX = point.X - particle.X;
-                        float gY = point.Y - particle.Y;
-
-                        float r2 = (float)Math.Max(100, gX * gX + gY * gY);
-                        float M = 100;
-
-                        particle.SpeedX += (gX) * M / r2;
-                        particle.SpeedY += (gY) * M / r2;
+                        point.ImpactParticle(particle);
                     }
 
                     particle.SpeedX += GravitationX;
@@ -86,16 +79,56 @@ namespace ParticleSystem
                 particle.Draw(g);
             }
 
-            foreach (var point in gravityPoints)
+            foreach (var point in impactPoints)
             {
-                g.FillEllipse(
-                    new SolidBrush(Color.Red),
-                    point.X - 5,
-                    point.Y - 5,
-                    10,
-                    10
-                );
+                point.Render(g);
             }
         }
     }
+
+    public abstract class IImpactPoint
+    {
+        public float X;
+        public float Y;
+
+        public abstract void ImpactParticle(Particle particle);
+
+        public void Render(Graphics g) {
+            g.FillEllipse(
+                new SolidBrush(Color.Red),
+                X - 5, Y - 5, 10, 10
+            );
+        }
+    }
+
+    public class GravityPoint : IImpactPoint
+    {
+        public int Power = 100;
+
+        public override void ImpactParticle(Particle particle)
+        {
+            float gX = X - particle.X;
+            float gY = Y - particle.Y;
+            float r2 = (float)Math.Max(100, gX * gX + gY * gY);
+
+            particle.SpeedX += gX * Power / r2;
+            particle.SpeedY += gY * Power / r2;
+        }
+    }
+
+    public class AntiGravityPoint : IImpactPoint
+    {
+        public float Power = 100;
+
+        public override void ImpactParticle(Particle particle)
+        {
+            float gX = X - particle.X;
+            float gY = Y - particle.Y;
+            float r2 = (float)Math.Max(100, gX * gX + gY * gY);
+
+            particle.SpeedX -= gX * Power / r2;
+            particle.SpeedY -= gY * Power / r2;
+        }
+    }
+
 }
