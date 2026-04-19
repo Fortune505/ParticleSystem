@@ -18,6 +18,22 @@ namespace ParticleSystem
 
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
 
+        public int ParticlesCount = 500;
+
+        public virtual void ResetParticle(Particle particle)
+        {
+            particle.Life = 20 + Particle.rand.Next(100);
+            particle.X = MousePositionX;
+            particle.Y = MousePositionY;
+
+            var direction = (double)Particle.rand.Next(360);
+            var speed = 1 + Particle.rand.Next(10);
+
+            particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI));
+            particle.SpeedY = (float)(Math.Sin(direction / 180 * Math.PI) * speed);
+
+            particle.Radius = 2 + Particle.rand.Next(10);
+        }
         public void UpdateState()
         {
             foreach (var particle in particles)
@@ -45,7 +61,7 @@ namespace ParticleSystem
 
             for (var i = 0; i < 10; ++i)
             {
-                if (particles.Count < 500)
+                if (particles.Count < ParticlesCount)
                 {
                     var particle = new ParticleColorful();
                     particle.FromColor = Color.White;
@@ -61,21 +77,7 @@ namespace ParticleSystem
                 }
             }
         }
-
-        public virtual void ResetParticle(Particle particle)
-        {
-            particle.Life = 20 + Particle.rand.Next(100);
-            particle.X = MousePositionX;
-            particle.Y = MousePositionY;
-
-            var direction = (double)Particle.rand.Next(360);
-            var speed = 1 + Particle.rand.Next(10);
-
-            particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI));
-            particle.SpeedY = (float)(Math.Sin(direction / 180 * Math.PI) * speed);
-
-            particle.Radius = 2 + Particle.rand.Next(10);
-        }
+         
 
         public void Render(Graphics g)
         {
