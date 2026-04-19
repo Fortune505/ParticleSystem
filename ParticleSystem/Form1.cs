@@ -13,14 +13,20 @@ namespace ParticleSystem
     public partial class Form1 : Form
     {
         List<Particle> particles = new List<Particle>();
-        Emitter emitter = new Emitter();
+        Emitter emitter;
         public Form1()
         {
             InitializeComponent();
 
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-            emitter.impactPoints.Add(new GravityPoint 
+            emitter = new TopEmitter
+            {
+                Width = picDisplay.Width,
+                GravitationY = 0.25f
+            };
+
+            emitter.impactPoints.Add(new GravityPoint
             {
                 X = (float)(picDisplay.Width * 0.25),
                 Y = picDisplay.Height / 2

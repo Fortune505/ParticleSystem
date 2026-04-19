@@ -25,18 +25,7 @@ namespace ParticleSystem
                 particle.Life -= 1;
                 if (particle.Life < 0)
                 {
-                    particle.Life = 20 + Particle.rand.Next(100);
-
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
-
-                    var direction = (double)Particle.rand.Next(360);
-                    var speed = 1 + Particle.rand.Next(10);
-
-                    particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-                    particle.SpeedY = (float)(Math.Sin(direction / 180 * Math.PI) * speed);
-
-                    particle.Radius = 2 + Particle.rand.Next(10);
+                    ResetParticle(particle);
                 }
                 else
                 {
@@ -59,10 +48,11 @@ namespace ParticleSystem
                 if (particles.Count < 500)
                 {
                     var particle = new ParticleColorful();
-                    particle.FromColor = Color.Yellow;
-                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
+                    particle.FromColor = Color.White;
+                    particle.ToColor = Color.FromArgb(0, Color.Black);
+                    
+                    ResetParticle(particle);
+
                     particles.Add(particle);
                 }
                 else
@@ -70,6 +60,21 @@ namespace ParticleSystem
                     break;
                 }
             }
+        }
+
+        public virtual void ResetParticle(Particle particle)
+        {
+            particle.Life = 20 + Particle.rand.Next(100);
+            particle.X = MousePositionX;
+            particle.Y = MousePositionY;
+
+            var direction = (double)Particle.rand.Next(360);
+            var speed = 1 + Particle.rand.Next(10);
+
+            particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI));
+            particle.SpeedY = (float)(Math.Sin(direction / 180 * Math.PI) * speed);
+
+            particle.Radius = 2 + Particle.rand.Next(10);
         }
 
         public void Render(Graphics g)
@@ -128,6 +133,22 @@ namespace ParticleSystem
 
             particle.SpeedX -= gX * Power / r2;
             particle.SpeedY -= gY * Power / r2;
+        }
+    }
+
+    public class TopEmitter : Emitter
+    {
+        public int Width;
+
+        public override void ResetParticle(Particle particle)
+        {
+            base.ResetParticle(particle);
+
+            particle.X = Particle.rand.Next(Width);
+            particle.Y = 0;
+
+            particle.SpeedX = 1;
+            particle.SpeedY = Particle.rand.Next(-2, 2);
         }
     }
 
