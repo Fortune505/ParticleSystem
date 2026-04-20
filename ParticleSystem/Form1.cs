@@ -55,11 +55,17 @@ namespace ParticleSystem
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            emitter.UpdateState();
+            foreach (var em in emitters)
+            {
+                em.UpdateState();
+            }
 
             using (var g = Graphics.FromImage(picDisplay.Image)) {
                 g.Clear(Color.Black);
-                emitter.Render(g);
+                foreach (var em in emitters)
+                {
+                    em.Render(g);
+                }
             }
 
             picDisplay.Invalidate();

@@ -41,7 +41,7 @@ namespace ParticleSystem
             particle.X = X;
             particle.Y = Y;
 
-            var direction = Direction + (double)Particle.rand.Next(SpeedMin, SpeedMax) - Spreading / 2;
+            var direction = Direction + (double)Particle.rand.Next(Spreading) - Spreading / 2;
             var speed = Particle.rand.Next(SpeedMin, SpeedMax);
 
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
@@ -165,7 +165,7 @@ namespace ParticleSystem
 
             g.DrawString(
                 $"{Power}",
-                new Font("Vedana", 10),
+                new Font("Verdana", 10),
                 Brushes.White,
                 X,
                 Y,

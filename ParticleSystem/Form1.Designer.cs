@@ -36,6 +36,10 @@
             this.tbGraviton1 = new System.Windows.Forms.TrackBar();
             this.tbGraviton2 = new System.Windows.Forms.TrackBar();
             this.tbSpreading = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).BeginInit();
@@ -60,7 +64,7 @@
             // 
             // tbDirection
             // 
-            this.tbDirection.Location = new System.Drawing.Point(12, 444);
+            this.tbDirection.Location = new System.Drawing.Point(12, 457);
             this.tbDirection.Maximum = 359;
             this.tbDirection.Name = "tbDirection";
             this.tbDirection.Size = new System.Drawing.Size(402, 56);
@@ -77,7 +81,7 @@
             // 
             // tbGraviton1
             // 
-            this.tbGraviton1.Location = new System.Drawing.Point(504, 444);
+            this.tbGraviton1.Location = new System.Drawing.Point(649, 457);
             this.tbGraviton1.Maximum = 300;
             this.tbGraviton1.Name = "tbGraviton1";
             this.tbGraviton1.Size = new System.Drawing.Size(139, 56);
@@ -87,7 +91,7 @@
             // 
             // tbGraviton2
             // 
-            this.tbGraviton2.Location = new System.Drawing.Point(649, 444);
+            this.tbGraviton2.Location = new System.Drawing.Point(504, 457);
             this.tbGraviton2.Maximum = 300;
             this.tbGraviton2.Name = "tbGraviton2";
             this.tbGraviton2.Size = new System.Drawing.Size(139, 56);
@@ -97,7 +101,7 @@
             // 
             // tbSpreading
             // 
-            this.tbSpreading.Location = new System.Drawing.Point(267, 527);
+            this.tbSpreading.Location = new System.Drawing.Point(303, 549);
             this.tbSpreading.Maximum = 360;
             this.tbSpreading.Name = "tbSpreading";
             this.tbSpreading.Size = new System.Drawing.Size(307, 56);
@@ -105,11 +109,51 @@
             this.tbSpreading.Value = 10;
             this.tbSpreading.Scroll += new System.EventHandler(this.tbSpreading_Scroll);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 438);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Направление";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(514, 438);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 16);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Левый гравитор";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(646, 438);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(123, 16);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Правый кравитор";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(300, 516);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 16);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Расеивание";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 617);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tbSpreading);
             this.Controls.Add(this.tbGraviton2);
             this.Controls.Add(this.tbGraviton1);
@@ -137,6 +181,10 @@
         private System.Windows.Forms.TrackBar tbGraviton1;
         private System.Windows.Forms.TrackBar tbGraviton2;
         private System.Windows.Forms.TrackBar tbSpreading;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 
