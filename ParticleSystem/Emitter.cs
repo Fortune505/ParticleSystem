@@ -30,8 +30,10 @@ namespace ParticleSystem
         public int RadiusMax = 10;
         public int LifeMin = 20;
         public int LifeMax = 100;
+        public int ParticlesPerTick = 1;
         public Color ColorFrom = Color.White;
         public Color ColorTo = Color.FromArgb(0, Color.Black);
+
 
         public virtual void ResetParticle(Particle particle)
         {
@@ -59,15 +61,25 @@ namespace ParticleSystem
         }
         public void UpdateState()
         {
+            int particlesToCreate = ParticlesPerTick;
+
             foreach (var particle in particles)
             {
-                particle.Life -= 1;
-                if (particle.Life < 0)
+                if (particle.Life <= 0)
                 {
-                    ResetParticle(particle);
+                    if (particlesToCreate > 0)
+                    {
+                        particlesToCreate -= 1;
+                        ResetParticle(particle);
+                    }
                 }
                 else
                 {
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
+
+                    particle.Life -= 1;
+
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
@@ -75,27 +87,16 @@ namespace ParticleSystem
 
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
-
-                    particle.X += particle.SpeedX;
-                    particle.Y += particle.SpeedY;
                 }
 
             }
 
-            for (var i = 0; i < 10; ++i)
+            while (particlesToCreate >= 1)
             {
-                if (particles.Count < ParticlesCount)
-                {
-                    var particle = CreateParticle();
-                    
-                    ResetParticle(particle);
-
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break;
-                }
+                particlesToCreate -= 1;
+                var particle = CreateParticle();
+                ResetParticle(particle);
+                particles.Add(particle);
             }
         }
          
@@ -121,7 +122,7 @@ namespace ParticleSystem
 
         public abstract void ImpactParticle(Particle particle);
 
-        public void Render(Graphics g) {
+        public virtual void Render(Graphics g) {
             g.FillEllipse(
                 new SolidBrush(Color.Red),
                 X - 5, Y - 5, 10, 10
@@ -137,10 +138,39 @@ namespace ParticleSystem
         {
             float gX = X - particle.X;
             float gY = Y - particle.Y;
-            float r2 = (float)Math.Max(100, gX * gX + gY * gY);
 
-            particle.SpeedX += gX * Power / r2;
-            particle.SpeedY += gY * Power / r2;
+            double r = Math.Sqrt(gX * gX + gY * gY);
+
+            if (r + particle.Radius < Power / 2)
+            {
+                float r2 = (float)Math.Max(100, gX * gX + gY * gY);
+                particle.SpeedX += gX * Power / r2;
+                particle.SpeedY += gY * Power / r2;
+            }
+        }
+
+        public override void Render(Graphics g)
+        {
+            g.DrawEllipse(
+                new Pen(Color.Red),
+                X - Power / 2,
+                Y - Power / 2, 
+                Power, 
+                Power
+            );
+
+            var stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+
+            g.DrawString(
+                $"{Power}",
+                new Font("Vedana", 10),
+                Brushes.White,
+                X,
+                Y,
+                stringFormat
+                );
         }
     }
 
