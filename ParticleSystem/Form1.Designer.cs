@@ -40,11 +40,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.tbRadius = new System.Windows.Forms.TrackBar();
+            this.tbRotationSpeed = new System.Windows.Forms.TrackBar();
+            this.tbParticlesPerTick = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSpreading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRadius)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRotationSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbParticlesPerTick)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -101,7 +110,7 @@
             // 
             // tbSpreading
             // 
-            this.tbSpreading.Location = new System.Drawing.Point(303, 549);
+            this.tbSpreading.Location = new System.Drawing.Point(15, 530);
             this.tbSpreading.Maximum = 360;
             this.tbSpreading.Name = "tbSpreading";
             this.tbSpreading.Size = new System.Drawing.Size(307, 56);
@@ -139,17 +148,81 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(300, 516);
+            this.label4.Location = new System.Drawing.Point(12, 511);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 16);
             this.label4.TabIndex = 9;
             this.label4.Text = "Расеивание";
+            // 
+            // tbRadius
+            // 
+            this.tbRadius.Location = new System.Drawing.Point(388, 530);
+            this.tbRadius.Maximum = 300;
+            this.tbRadius.Name = "tbRadius";
+            this.tbRadius.Size = new System.Drawing.Size(123, 56);
+            this.tbRadius.TabIndex = 10;
+            this.tbRadius.Value = 100;
+            this.tbRadius.Scroll += new System.EventHandler(this.tbRadius_Scroll);
+            // 
+            // tbRotationSpeed
+            // 
+            this.tbRotationSpeed.Location = new System.Drawing.Point(517, 530);
+            this.tbRotationSpeed.Maximum = 300;
+            this.tbRotationSpeed.Name = "tbRotationSpeed";
+            this.tbRotationSpeed.Size = new System.Drawing.Size(126, 56);
+            this.tbRotationSpeed.TabIndex = 11;
+            this.tbRotationSpeed.Value = 100;
+            this.tbRotationSpeed.Scroll += new System.EventHandler(this.tbRotationSpeed_Scroll);
+            // 
+            // tbParticlesPerTick
+            // 
+            this.tbParticlesPerTick.Location = new System.Drawing.Point(649, 530);
+            this.tbParticlesPerTick.Maximum = 50;
+            this.tbParticlesPerTick.Minimum = 1;
+            this.tbParticlesPerTick.Name = "tbParticlesPerTick";
+            this.tbParticlesPerTick.Size = new System.Drawing.Size(139, 56);
+            this.tbParticlesPerTick.TabIndex = 12;
+            this.tbParticlesPerTick.Value = 10;
+            this.tbParticlesPerTick.Scroll += new System.EventHandler(this.tbParticlesPerTick_Scroll);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(385, 511);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Радиус";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(514, 511);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(135, 16);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Скорость вращения";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(655, 511);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(98, 16);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Частиц за тик";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 617);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbParticlesPerTick);
+            this.Controls.Add(this.tbRotationSpeed);
+            this.Controls.Add(this.tbRadius);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -167,6 +240,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSpreading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRadius)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRotationSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbParticlesPerTick)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,6 +261,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar tbRadius;
+        private System.Windows.Forms.TrackBar tbRotationSpeed;
+        private System.Windows.Forms.TrackBar tbParticlesPerTick;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

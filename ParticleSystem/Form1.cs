@@ -13,7 +13,7 @@ namespace ParticleSystem
     public partial class Form1 : Form
     {
         List<Emitter> emitters = new List<Emitter>();
-        Emitter emitter;
+        CircularEmitter emitter;
         GravityPoint point1;
         GravityPoint point2;
         public Form1()
@@ -22,7 +22,7 @@ namespace ParticleSystem
 
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-            this.emitter = new Emitter
+            this.emitter = new CircularEmitter
             {
                 Direction = 0,
                 Spreading = 10,
@@ -31,8 +31,10 @@ namespace ParticleSystem
                 ColorFrom = Color.Gold,
                 ColorTo = Color.FromArgb(0, Color.Red),
                 ParticlesPerTick = 10,
-                X = picDisplay.Width / 2,
-                Y = picDisplay.Height / 2,
+                MousePositionX = picDisplay.Width / 2,
+                MousePositionY = picDisplay.Height / 2,
+                CircularRadius = 100,
+                RotationSpeed = 2
             };
 
             emitters.Add(this.emitter);
@@ -74,12 +76,7 @@ namespace ParticleSystem
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            foreach (var em in emitters)
-            {
-                em.MousePositionX = e.X;
-                em.MousePositionY = e.Y;
-            }
-
+            
             point2.X = e.X;
             point2.Y = e.Y;
             
@@ -105,6 +102,21 @@ namespace ParticleSystem
         private void tbSpreading_Scroll(object sender, EventArgs e)
         {
             emitter.Spreading = tbSpreading.Value;
+        }
+
+        private void tbRadius_Scroll(object sender, EventArgs e)
+        {
+            emitter.CircularRadius = tbRadius.Value;
+        }
+
+        private void tbRotationSpeed_Scroll(object sender, EventArgs e)
+        {
+            emitter.RotationSpeed = tbRotationSpeed.Value; 
+        }
+
+        private void tbParticlesPerTick_Scroll(object sender, EventArgs e)
+        {
+            emitter.ParticlesPerTick = tbParticlesPerTick.Value;
         }
     }
 }

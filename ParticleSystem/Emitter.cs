@@ -59,7 +59,7 @@ namespace ParticleSystem
             return particle;
 
         }
-        public void UpdateState()
+        public virtual void UpdateState()
         {
             int particlesToCreate = ParticlesPerTick;
 
@@ -101,7 +101,7 @@ namespace ParticleSystem
         }
          
 
-        public void Render(Graphics g)
+        public virtual void Render(Graphics g)
         {
             foreach (var particle in particles)
             {
@@ -202,6 +202,43 @@ namespace ParticleSystem
 
             particle.SpeedX = 1;
             particle.SpeedY = Particle.rand.Next(-2, 2);
+        }
+    }
+
+    public class CircularEmitter : Emitter 
+    {
+        public float CircularRadius = 100;
+        public float RotationSpeed = 0.5f;
+        public float CurrentAngle = 0;
+
+        public override void UpdateState()
+        {
+            CurrentAngle += RotationSpeed;
+
+            X = (int)(MousePositionX + CircularRadius * Math.Cos(CurrentAngle / 180 * Math.PI));
+            Y = (int)(MousePositionY + CircularRadius * Math.Sin(CurrentAngle / 180 * Math.PI));
+
+            Direction = (int)(CurrentAngle + 90);
+
+            base.UpdateState();
+        }
+
+        public override void Render(Graphics g)
+        {
+            base.Render(g);
+
+            Pen orbitPen = new Pen(Color.FromArgb(100, Color.White));
+            orbitPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+
+            g.DrawEllipse(
+                orbitPen,
+                MousePositionX - CircularRadius,
+                MousePositionY - CircularRadius,
+                CircularRadius * 2,
+                CircularRadius * 2
+                );
+
+            g.FillEllipse(Brushes.White, X - 3, Y - 3, 6, 6);
         }
     }
 
