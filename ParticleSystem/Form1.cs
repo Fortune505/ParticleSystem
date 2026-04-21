@@ -16,6 +16,7 @@ namespace ParticleSystem
         CircularEmitter emitter;
         GravityPoint point1;
         GravityPoint point2;
+        TeleportPoint teleport;
         public Form1()
         {
             InitializeComponent();
@@ -54,6 +55,16 @@ namespace ParticleSystem
             emitter.impactPoints.Add(point1);
             emitter.impactPoints.Add(point2);
 
+            teleport = new TeleportPoint
+            {
+                X = picDisplay.Width / 2 - 200,
+                Y = picDisplay.Height / 2 -100,
+                TargetX = picDisplay.Width / 2 + 200,
+                TargetY = picDisplay.Height / 2 + 100
+            };
+
+            emitter.impactPoints.Add(teleport);
+
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -81,14 +92,7 @@ namespace ParticleSystem
             point2.Y = e.Y;
             
         }
-
-        private void tbDirection_Scroll(object sender, EventArgs e)
-        {
-            emitter.Direction = tbDirection.Value;
-
-            lblDirection.Text = $"{tbDirection.Value}°";
-        }
-
+              
         private void tbGraviton1_Scroll(object sender, EventArgs e)
         {
             point1.Power = tbGraviton1.Value;
@@ -117,6 +121,19 @@ namespace ParticleSystem
         private void tbParticlesPerTick_Scroll(object sender, EventArgs e)
         {
             emitter.ParticlesPerTick = tbParticlesPerTick.Value;
+        }
+
+        private void picDisplay_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                teleport.X = e.X;
+                teleport.Y = e.Y;
+            } else if (e.Button == MouseButtons.Right)
+            {
+                teleport.TargetX = e.X;
+                teleport.TargetY = e.Y;
+            }
         }
     }
 }

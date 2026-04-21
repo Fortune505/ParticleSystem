@@ -189,6 +189,39 @@ namespace ParticleSystem
         }
     }
 
+    public class TeleportPoint : IImpactPoint
+    {
+        public float TargetX;
+        public float TargetY;
+        public int Radius = 30;
+
+        public override void ImpactParticle(Particle particle)
+        {
+            float gX = X - particle.X;
+            float gY = Y - particle.Y;
+            double r = Math.Sqrt(gX * gX + gY * gY);
+
+            if (r + particle.Radius < Radius)
+            {
+                particle.X = TargetX;
+                particle.Y = TargetY;
+            }
+        }
+
+        public override void Render(Graphics g)
+        {
+            g.DrawEllipse(new Pen(Color.DeepSkyBlue, 2), X - Radius, Y - Radius, Radius * 2, Radius * 2);
+            g.DrawEllipse(new Pen(Color.Orange, 2), TargetX - Radius, TargetY - Radius, Radius * 2, Radius * 2);
+
+            var stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+
+            g.DrawString("Вход", new Font("Verdana", 8, FontStyle.Bold), Brushes.DeepSkyBlue, X, Y - Radius - 15, stringFormat);
+            g.DrawString("Выход", new Font("Verdana", 8, FontStyle.Bold), Brushes.Orange, TargetX, TargetY - Radius - 15, stringFormat);
+        }
+    }
+
     public class TopEmitter : Emitter
     {
         public int Width;
